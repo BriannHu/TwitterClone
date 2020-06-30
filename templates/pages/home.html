@@ -3,18 +3,37 @@
 {% block content %}
 Welcome to tweet app
 
+<div id="tweets">
+    Replace me
+</div> 
+
 <script>
+    const tweetsElement = document.getElementById("tweets")
+    
+
     const xhr = new XMLHttpRequest()
     const method = "GET" // as opposed to 'POST'
     const url = "/tweets"
     const responseType = "json"
+
+    function formatTweetElement(tweet) {
+        var formattedTweet = "<div class='m-4' id='tweet-" + tweet.id + "'><p>" + tweet.content + "</p></div>"
+        return formattedTweet
+    }
 
     xhr.responseType = responseType
     xhr.open(method, url)
     xhr.onload = function () {
         const serverResponse = xhr.response
         var listedItems = serverResponse.response
-        console.log(listedItems)
+        var finalTweetStr = ""
+        var i;
+        for (i=0; i<listedItems.length;i++) {
+            var tweetObj = listedItems[i]
+            var currentItem = formatTweetElement(tweetObj)
+            finalTweetStr += currentItem
+        }
+        tweetsElement.innerHTML = finalTweetStr
     }
     xhr.send()
 
