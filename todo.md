@@ -1,4 +1,10 @@
-1. Users
+1. Tweets
+   -> Creating
+        -> Text
+        -> Image
+    -> Delete
+    -> Retweeting
+2. Users
    -> Register
    -> Login
    -> Logout
@@ -9,3 +15,8 @@
     -> Feed
         -> User's feed only?
         -> User + who they follow
+3. Following/ Followers
+
+Long term todos
+    -> Notifications
+    -> Dms
