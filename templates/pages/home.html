@@ -2,4 +2,22 @@
 
 {% block content %}
 Welcome to tweet app
+
+<script>
+    const xhr = new XMLHttpRequest()
+    const method = "GET" // as opposed to 'POST'
+    const url = "/tweets"
+    const responseType = "json"
+
+    xhr.responseType = responseType
+    xhr.open(method, url)
+    xhr.onload = function () {
+        const serverResponse = xhr.response
+        var listedItems = serverResponse.response
+        console.log(listedItems)
+    }
+    xhr.send()
+
+</script>
+
 {% endblock content %}
