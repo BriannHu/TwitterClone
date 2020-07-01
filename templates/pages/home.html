@@ -12,7 +12,7 @@
         <form class="form" id="tweet-create-form" method="POST" action="/create-tweet">
             {% csrf_token %}
             <input type="hidden" value="/" name="next" />
-            <textarea class="form-control mb-2" name="content" placeholder="Your tweet"></textarea>
+            <textarea class="form-control mb-2" name="content" placeholder="Your tweet" required></textarea>
             <button class="btn btn-primary float-right" type="Submit">Tweet</button>
         </form>
     </div>
@@ -31,21 +31,32 @@
         const url = myForm.getAttribute("action") // /create-tweet
         const method = myForm.getAttribute("method") // POST
         const xhr = new XMLHttpRequest()
+        const responseType = "json"
+        xhr.responseType = responseType
         // manually set headers for is_ajax to work
         xhr.open(method, url)
         xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
-        const responseType = "json"
-        xhr.responseType = responseType
+        
         xhr.onload = function() {
             if (xhr.status === 201) { 
                 const newTweet = xhr.response
                 const newTweetElement = formatTweetElement(newTweet)
                 const original = tweetsContainerElement.innerHTML
                 tweetsContainerElement.innerHTML = newTweetElement + original
+                myForm.reset()
+            } else if (xhr.status === 400) {
+                const errorJson = xhr.response
+                console.log(errorJson)
+            } else if (xhr.status === 500) {
+                alert("There was a server error.")
             }
         }
+        xhr.onerror = function() {
+            alert("An error occured. Please try again later.")
+        }
         xhr.send(myFormData)
+
     }
     const tweetCreateFormEl = document.getElementById("tweet-create-form")
 
