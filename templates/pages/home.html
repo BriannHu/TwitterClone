@@ -30,16 +30,20 @@
         const myFormData = new FormData(myForm)
         const url = myForm.getAttribute("action") // /create-tweet
         const method = myForm.getAttribute("method") // POST
-        const xhr = new XMLHttpRequest
+        const xhr = new XMLHttpRequest()
         // manually set headers for is_ajax to work
         xhr.open(method, url)
         xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+        const responseType = "json"
+        xhr.responseType = responseType
         xhr.onload = function() {
-            const serverResponse = xhr.response
-            console.log(serverResponse)
-            const tweetsEl = document.getElementById("tweets")
-            loadTweets(tweetsEl)
+            if (xhr.status === 201) { 
+                const newTweet = xhr.response
+                const newTweetElement = formatTweetElement(newTweet)
+                const original = tweetsContainerElement.innerHTML
+                tweetsContainerElement.innerHTML = newTweetElement + original
+            }
         }
         xhr.send(myFormData)
     }
@@ -48,7 +52,7 @@
     tweetCreateFormEl.addEventListener("submit", handleTweetCreateFormDidSubmit)
 
     // gets all current tweets that are already in database
-    const tweetsEl = document.getElementById("tweets")
+    const tweetsContainerElement = document.getElementById("tweets")
     
     // function to load all current tweets
     function loadTweets (tweetsElement) {
@@ -73,7 +77,7 @@
         xhr.send()
     }
     // loads all current tweets
-    loadTweets(tweetsEl)
+    loadTweets(tweetsContainerElement)
     
 
     function handleDidLike(tweet_id, currentCount) {
