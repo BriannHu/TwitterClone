@@ -14,6 +14,9 @@ def home_view(request, *args, **kwargs):
     return render(request, "pages/home.html", context={}, status=200)
 
 def tweet_create_view(request, *args, **kwargs):
+    '''
+    REST API CRUD view
+    '''
     user = request.user
     # checks if user is authenticated
     if not request.user.is_authenticated:

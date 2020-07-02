@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # own code below
+    # third-party
+    'rest-framework',
+    # internal
     'tweets',
 ]
 
