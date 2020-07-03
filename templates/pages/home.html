@@ -71,7 +71,7 @@
                 } else {
                     alert("An error occured, please try again.")
                 }
-            } else if (xhr.status === 401) {
+            } else if (xhr.status === 403) {
                 alert("You must login to post a tweet.")
                 window.location.href = "/login"
             } else if (xhr.status === 500) {
