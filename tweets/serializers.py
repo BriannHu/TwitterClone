@@ -3,7 +3,7 @@ from .models import Tweet
 from django.conf import settings
 
 MAX_TWEET_LENGTH = settings.MAX_TWEET_LENGTH
-TWEET_ACTION_OPTIONS = settings.MAX_TWEET_LENGTH
+TWEET_ACTION_OPTIONS = settings.TWEET_ACTION_OPTIONS
 
 class TweetActionSerializer(serializers.Serializer):
     id = serializers.IntegerField()
