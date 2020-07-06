@@ -31,6 +31,9 @@ class Tweet(models.Model):
     # def __str__(self):
     #     return self.content
     
+    @property
+    def is_retweet(self):
+        return self.parent != None
 
     def serialize(self):
         return {
