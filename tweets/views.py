@@ -9,6 +9,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+
 from .models import Tweet
 from .forms import TweetForm
 from .serializers import TweetSerializer, TweetActionSerializer
@@ -70,6 +71,7 @@ def tweet_action_view(request, *args, **kwargs):
         data = serializer.validated_data
         tweet_id = data.get("id")
         action = data.get("action")
+        content = data.get("content")
         qs = Tweet.objects.filter(id=tweet_id)
         if not qs.exists():
             return Response({}, status=404)
@@ -81,7 +83,12 @@ def tweet_action_view(request, *args, **kwargs):
         elif action == "unlike":
             obj.likes.remove(request.user)
         elif action == "retweet":
-            pass # todo
+            new_tweet = Tweet.objects.create(
+                user=request.user,
+                parent=obj,
+                content=content,
+                )
+            serializer = TweetSerializer(new_tweet)
     return Response({"message": "Tweet removed"}, status=200)
 
 
