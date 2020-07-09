@@ -17,7 +17,7 @@ export function TweetsComponent(props) {
         textAreaRef.current.value = ''
     }
     return <div className={props.className}>
-        <div className='mx-auto col-10 mb-3'>
+        <div className='mx-auto col-10 my-3'>
             <form onSubmit={handleSubmit}>
                 <textarea ref={textAreaRef} required className='form-control' name='tweet'>
 
