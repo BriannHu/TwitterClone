@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import {ProfileBadgeComponent} from './profiles'
 import {FeedComponent, TweetsComponent, TweetDetailComponent} from './tweets'
 import * as serviceWorker from './serviceWorker';
 
@@ -30,6 +31,15 @@ const tweetDetailElements = document.querySelectorAll(".tweet_app-detail")
 tweetDetailElements.forEach(container=> {
   ReactDOM.render(
     e(TweetDetailComponent, container.dataset),
+    container)
+
+})
+
+const userProfileBadgeElements = document.querySelectorAll(".tweet_app-profile-badge")
+
+userProfileBadgeElements.forEach(container=> {
+  ReactDOM.render(
+    e(ProfileBadgeComponent, container.dataset),
     container)
 
 })

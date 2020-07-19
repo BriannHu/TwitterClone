@@ -30,7 +30,7 @@ class PublicProfileSerializer(serializers.ModelSerializer):
         request = context.get("request")
         if request:
             user = request.user
-            us_following = user in obj.followers.all()
+            is_following = user in obj.followers.all()
         return is_following
 
     def get_first_name(self, obj):
